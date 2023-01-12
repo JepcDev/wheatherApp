@@ -21,7 +21,8 @@ const main = async () => {
       case 1:
         // Mostrar mensaje para que la persona escriba el lugar
         const lugar = await leerInput('Ciudad: ');
-        console.log(lugar);
+        // console.log(lugar);
+        await busquedas.ciudad(lugar);
         // Buscar los lugares que coincidas con el lugar que escribio el usuario
 
         // El usuario tiene que seleccionar un lugar de la lista de lugares coincidentes
