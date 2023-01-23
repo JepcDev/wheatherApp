@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // console.log('Hola mundo');
 const { leerInput ,
         inquirerMenu,

@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+// Process contiene todo lo que son nuestras variables de entorno
+// console.log(process.env);
 class Busquedas {
   // historial = ['Teguciagalpa', 'Madrid', 'San José'];
   historial = [];
@@ -11,7 +13,7 @@ class Busquedas {
   get paramsMapbox() {
     return {
       // access_token:
-      'access_token' :'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJja2tvZHh4Y3YwMDhnMnBvY3ozbHUxdGJvIn0.3zptKSSxJrM5VmfjnkKMYA',
+      'access_token' : process.env.MAPBOX_KEY,
       'limit': 5,
       'language': 'es'
     }
