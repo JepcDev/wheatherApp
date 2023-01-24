@@ -39,9 +39,17 @@ class Busquedas {
       });
 
       const resp = await instance.get();
-      console.log(resp.data);
+      // console.log(resp.data.features);
+      // aqui dentro hay que hacer un return del objeto que quiero que sea parte del nuevo elemento de mi arreglo
+      // lugar =>({}) significa que voy a regresar un objeto de forma implicita
+      return resp.data.features.map( lugar => ({
+        id: lugar.id,
+        nombre : lugar.place_name,
+        lng: lugar.center[0],
+        lat: lugar.center[1]
+      }));
 
-      return []; //retonar una lista o array con los lugares  que coincidan con la palabra o lugar que escribio el usuario
+      // return []; //retonar una lista o array con los lugares  que coincidan con la palabra o lugar que escribio el usuario
     } catch (error) {
       return [];
     }

@@ -73,19 +73,20 @@ const leerInput = async(message)=> {
   return desc;
 }
 
-// DEV listadoTareasBorrar
-const listadoTareasBorrar = async( tareas = [] ) => {
+// DEV listarLugares
+const listarLugares = async( lugares = [] ) => {
   // map regresa un nuevo arreglo pero transforma los hijos del array
   // es decir los valores del arreglo actal los tranforma a lo que yo quiera
-  const choices = tareas.map( (tarea, i) => {
+  const choices = lugares.map( (lugar, i) => {
     const idx = `${i + 1}.`.green
     // lo que retornemos es como van a lusir cada uno de los nuevos items del arreglo
     return {
-      value: tarea.id,
-      name: `${idx} ${tarea.desc}`
+      value: lugar.id,
+      name: `${idx} ${lugar.nombre}`
     }
   });
 
+  // Es para que lo ponga al inicio de todo y haya la funcion cancelar
   choices.unshift({
     value: '0',
     name: '0.'.green + ' Cancelar'
@@ -95,7 +96,7 @@ const listadoTareasBorrar = async( tareas = [] ) => {
     {
       type: 'list',
       name: 'id',
-      message: 'Borrar',
+      message: 'Seleccione lugar',
       choices
     }
   ]
@@ -155,7 +156,7 @@ module.exports = {
   inquirerMenu,
   pause,
   leerInput,
-  listadoTareasBorrar,
+  listarLugares,
   confirmation,
   mostrarListadoCheckList
 }

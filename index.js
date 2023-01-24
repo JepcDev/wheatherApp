@@ -3,7 +3,8 @@ require('dotenv').config()
 // console.log('Hola mundo');
 const { leerInput ,
         inquirerMenu,
-        pause
+        pause,
+        listarLugares
       } = require('./helpers/inquirer');
 
 const Busquedas = require('./models/busquedas');
@@ -22,20 +23,26 @@ const main = async () => {
     switch (opt) {
       case 1:
         // Mostrar mensaje para que la persona escriba el lugar
-        const lugar = await leerInput('Ciudad: ');
+        const termino = await leerInput('Ciudad: ');
         // console.log(lugar);
-        await busquedas.ciudad(lugar);
         // Buscar los lugares que coincidas con el lugar que escribio el usuario
+        const lugares = await busquedas.ciudad(termino);
 
         // El usuario tiene que seleccionar un lugar de la lista de lugares coincidentes
+        const idSeleccion = await listarLugares(lugares);
+        // Extraer el lugar seleccionado
+        // console.log({idSeleccion});
+        // find(callback) regresa el primer elemento que cumpla la condicion que especificamos en su callback
+        const lugarSeleccion = lugares.find(l => l.id === idSeleccion);
+        // console.log(lugarSeleccion);
 
         // Una vez el usuario selecciona un lugar obtenemos los datos del clima relacionados al geoLocation de ese lugar
 
         // Mostrar resultados de la busquedas
         console.log('\n Información de la ciudad\n'.green);
-        console.log('Ciudad: ',);
-        console.log('Lat: ');
-        console.log('Lng: ');
+        console.log('Ciudad: ', lugarSeleccion.nombre);
+        console.log('Lat: ', lugarSeleccion.lat);
+        console.log('Lng: ', lugarSeleccion.lng);
         console.log('Temperatura: ');
         console.log('Míniam: ');
         console.log('Máxima: ');
