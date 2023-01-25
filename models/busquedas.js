@@ -41,7 +41,7 @@ class Busquedas {
       const resp = await instance.get();
       // console.log(resp.data.features);
       // aqui dentro hay que hacer un return del objeto que quiero que sea parte del nuevo elemento de mi arreglo
-      // lugar =>({}) significa que voy a regresar un objeto de forma implicita
+      // lugar =>({}) significa que voy a regresar un objeto de forma implicita, un nuevo objeto no un nuevo elemento extra en el arreglo sino un nuevo objeto con caracteristicas o elementos propios
       return resp.data.features.map( lugar => ({
         id: lugar.id,
         nombre : lugar.place_name,
