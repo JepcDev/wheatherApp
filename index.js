@@ -37,15 +37,17 @@ const main = async () => {
         // console.log(lugarSeleccion);
 
         // Una vez el usuario selecciona un lugar obtenemos los datos del clima relacionados al geoLocation de ese lugar
-
+        const clima = await busquedas.weatherPlace(lugarSeleccion.lat, lugarSeleccion.lng);
         // Mostrar resultados de la busquedas
+        console.clear();
         console.log('\n Información de la ciudad\n'.green);
-        console.log('Ciudad: ', lugarSeleccion.nombre);
+        console.log('Ciudad: ', lugarSeleccion.nombre.green);
         console.log('Lat: ', lugarSeleccion.lat);
         console.log('Lng: ', lugarSeleccion.lng);
-        console.log('Temperatura: ');
-        console.log('Míniam: ');
-        console.log('Máxima: ');
+        console.log('Temperatura: ', clima.temp);
+        console.log('Mínima: ', clima.min);
+        console.log('Máxima: ', clima.max);
+        console.log('Como esta el clima: ', clima.desc.green);
       break;
 
       default:
