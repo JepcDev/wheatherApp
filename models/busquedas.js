@@ -4,15 +4,29 @@ const axios = require('axios');
 
 // Process contiene todo lo que son nuestras variables de entorno
 // console.log(process.env);
-// DEV Busquedas
+// DEV CLASS Busquedas
 class Busquedas {
   // historial = ['Teguciagalpa', 'Madrid', 'San José'];
   historial = [];
   dbPat = './db/data.json';
+
+  // DEV constructor
   constructor(){
     //TODO: leer db si existe
+    this.readDB();
   }
 
+  // DEV historialCapitalizado
+  get historialCapitalizado(){
+
+    return this.historial.map( (place) =>{
+      let palabras = place.split(' ');
+      palabras = palabras.map( p => p[0].toUpperCase() + p.substring(1));
+      return palabras.join(' ');
+    });
+  }
+
+  // DEV paramsMapbox
   get paramsMapbox() {
     return {
       // access_token:
@@ -22,6 +36,7 @@ class Busquedas {
     }
   }
 
+  // DEV paramsOpenWeather
   get paramsOpenWeather(){
     return{
       'appid': process.env.OPENWEATHER_KEY,
@@ -29,6 +44,8 @@ class Busquedas {
       'lang': 'es'
     }
   }
+
+  // DEV ciudad( lugar = '')
   // Es async por va a recibir informacion de una API
   async ciudad( lugar = ''){
     try {
@@ -100,12 +117,13 @@ class Busquedas {
     }
   }
 
-  // DEV agregarHidtorial
-  agregarHidtorial(lugar = ''){
+  // DEV agregarHistorial
+  agregarHistorial(lugar = ''){
     // TODO: prevenir duplicados
     if (this.historial.includes(lugar.toLocaleLowerCase())) {
       return;
     }
+    this.historial = this.historial.splice(0,5);//para que solo se guarden 6 lugares en la DB
     // añadir un lugar al historial - unshift para ponerlo al inicio
     this.historial.unshift(lugar.toLocaleLowerCase())
 
@@ -114,9 +132,8 @@ class Busquedas {
 
   }
 
-  // DEv saveDB
+  // DEV saveDB
   saveDB(){
-
     const payload = {
       historial: this.historial
     };
@@ -126,7 +143,11 @@ class Busquedas {
 
   // DEV readDB
   readDB(){
+    if (!fs.existsSync(this.dbPat)) return;
 
+    const inf = fs.readFileSync(this.dbPat, {encoding: 'utf-8'});
+    const data = JSON.parse(inf);//deserializar tomamos ese objeto que es un string y lo parseamos para que regrese a ser un objeto json o objeto literal de js
+    this.historial = data.historial;
   }
 }
 

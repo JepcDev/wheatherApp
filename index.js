@@ -39,7 +39,7 @@ const main = async () => {
         const lugarSeleccion = lugares.find(l => l.id === idSeleccion);
         // console.log(lugarSeleccion);
         // Guardar en DB
-        busquedas.agregarHidtorial(lugarSeleccion.nombre);
+        busquedas.agregarHistorial(lugarSeleccion.nombre);
 
         // Una vez el usuario selecciona un lugar obtenemos los datos del clima relacionados al geoLocation de ese lugar
         const clima = await busquedas.weatherPlace(lugarSeleccion.lat, lugarSeleccion.lng);
@@ -56,7 +56,8 @@ const main = async () => {
       break;
 
       case 2:
-        busquedas.historial.forEach( (lugar, i)=>{
+        // busquedas.historial.forEach( (lugar, i)=>{
+        busquedas.historialCapitalizado.forEach( (lugar, i)=>{
           const idx = `${i+1}.`.green;
           console.log(`${idx} ${lugar}`);
         });
